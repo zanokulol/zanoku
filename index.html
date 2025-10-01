@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zanoku.lol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Snowfall effect */
+        .snow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: #ffffff;
+            font-size: 1em;
+            opacity: 0.8;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+            }
+        }
+
+        /* Profile box */
+        .profile-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(30, 30, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .username {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #9C57C7, #C75780);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 30px 20px;
+            }
+            
+            .profile-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .username {
+                font-size: 24px;
+            }
+            
+            .btn {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="snow-container" id="snow-container"></div>
+
+    <div class="profile-container">
+        <div class="profile-icon">
+            <img src="https://github.com/zanokulol/zanoku/blob/main/14065-bliss-cat.jpg?raw=true" alt="Profile Icon">
+        </div>
+        <h1 class="username">zanoku</h1>
+        <div class="buttons">
+            <a href="https://github.com/zanokulol" class="btn" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.youtube.com/@zanokucheats" class="btn" target="_blank">
+                <i class="fab fa-youtube"></i> Youtube
+            </a>
+            <a href="https://discord.gg/KqdmSJ75E3" class="btn" target="_blank">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function createSnow() {
+            const snowContainer = document.getElementById('snow-container');
+            const snowflakeCount = 80;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = '•';
+
+                const size = Math.random() * 1.5 + 0.5;
+                const left = Math.random() * 100;
+                const opacity = Math.random() * 0.7 + 0.3;
+                const duration = Math.random() * 10 + 10;
+
+                const startPosition = Math.random() * 100;
+                
+                snowflake.style.left = `${left}vw`;
+                snowflake.style.fontSize = `${size}em`;
+                snowflake.style.opacity = opacity;
+                snowflake.style.animationDuration = `${duration}s`;
+                
+                snowflake.style.setProperty('--start-position', `${-startPosition}%`);
+                snowflake.style.animationDelay = `-${startPosition / 100 * duration}s`;
+                
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        createSnow();
+    </script>
+</body>
+</html>
